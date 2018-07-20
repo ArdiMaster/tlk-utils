@@ -80,7 +80,7 @@ FileView::FileView(const std::string& path)
 
   struct stat buf;
   fstat(fd, &buf);
-  FileSize = AlignUp(buf.st_size, sysconf(_SC_PAGESIZE));
+  FileSize = AlignUp((uint64_t) buf.st_size, (uint64_t) sysconf(_SC_PAGESIZE));
 
   Data = mmap(nullptr, FileSize, PROT_READ, MAP_SHARED, fd, 0);
   int savedErrno = errno;

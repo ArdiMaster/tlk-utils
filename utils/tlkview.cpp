@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
   printf("String Count: %u\n", header->StringCount);
   printf("String Entries Offset: %u\n", header->StringEntriesOffset);
 
-  for (uint i = 0; i < tlkFile.GetStringCount(); i++) {
+  for (unsigned int i = 0; i < tlkFile.GetStringCount(); i++) {
     auto element = tlkFile.GetStringElement(i);
     printf("Element #%d:\n", i);
     printf("....... Flags: 0x%x\n", element->Flags);
