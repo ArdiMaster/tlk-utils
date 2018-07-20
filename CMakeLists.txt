@@ -13,3 +13,6 @@ target_include_directories(tlkcombine PUBLIC lib)
 
 add_executable(tlkreplace ${lib_sources} utils/tlkreplace.cpp)
 target_include_directories(tlkreplace PUBLIC lib)
+
+add_executable(tlkappend ${lib_sources} utils/tlkappend.cpp)
+target_include_directories(tlkappend PUBLIC lib)
