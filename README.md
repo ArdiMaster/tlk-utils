@@ -25,6 +25,8 @@ $ make
 * **tlkview**: Used to view all entries or a specific entry in a TLK file.
 * **tlkreplace**: Used to replace the contents of a specific TLK file entry with something else.
 * **tlkcombine**: Used to combine the dialogue of two TLK files into one. The primary use of this is to combine two dialogue files of separate languages. For example, if one were to combine Spanish and English, the resulting dialogue file would contain entries looking like: "Selecciona la apariencia de tu personaje (Select the Appearance of your Character)".
+* **tlkappend**: Used to add the given string as a new entry to the TLK file.
+* **tlksearch**: Used to search a TKL file, outputting all elements containing the given string.
 
 # Sample usage of tlkcombine
 
