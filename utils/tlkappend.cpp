@@ -20,11 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <stdio.h>
+#include <cstdio>
 #include <string>
 #include <cstring>
-#include <iostream>
-#include <fstream>
+#include <cstdlib>
 
 #include "libtlk.h"
 
@@ -33,11 +32,22 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "USAGE: %s tlkfile [-i|newfile] \"text\"\n", argv[0]);
         return 1;
     }
-
     std::string originalFile(argv[1]);
-    tlk::FileView *view = new tlk::FileView(originalFile);
-    uint32_t lastElementIndex = view->GetStringCount();
-    delete view;
+
+    // Get language and element count without processing entire file
+    uint32_t elements;
+    FILE *in = fopen(argv[1], "r");
+    if (in != NULL) {
+        tlk::Header *header = (tlk::Header*) malloc(sizeof(tlk::Header));
+        fread(header, sizeof(tlk::Header), 1, in);
+        elements = header->StringCount;
+        printf("%s: %s, %u entries\n", argv[1], tlk::GetLanguage(header->LanguageId), elements);
+        fclose(in);
+        free(header);
+    } else {
+        perror("Unable to open input file: ");
+        return 1;
+    }
 
     std::string newText(argv[3]);
     tlk::StringDataElement *newElement = new tlk::StringDataElement;
@@ -59,7 +69,7 @@ int main(int argc, char *argv[]) {
 
     delete newElement;
 
-    std::cout << "Wrote Element #" << lastElementIndex << "." << std::endl;
+    printf("Wrote Element #%d.\n", elements);
 
     return 0;
 }
